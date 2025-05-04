@@ -154,36 +154,6 @@ ggsave("Reproducibility/Simulations/graphics/Main/MR_bias_var_PA_n3000_eta025_c1
 
 
 
-p.hajek.coverage <- ggplot(mean.sim.results[ce_contrast == "c11-c10",],
-                       # aes(x=factor(K),y = coverage_hajek,
-                       aes(x=factor(K),y = coverage_ht,
-                           col = with.true.adj, shape = with.true.adj)) +
-  labs(title = "coverage", 
-       # x = "# networks used",
-       x = "",
-       # y = TeX('$\\tau - \\hat{\\tau}$')
-       y = ""
-  ) +
-  geom_point(size = 10, stroke = 2) +
-  geom_line() + 
-  scale_color_manual(labels = c("A* not included", "A* included"), values = c("red4","green4")) +
-  scale_shape_manual(labels = c("A* not included", "A* included"), values = c(1,4)) +
-  geom_abline(intercept = 0.95, slope = 0, lty = "dashed", linewidth = 1.1) +
-  scale_y_continuous(breaks = seq(0,1,0.1),limits = c(0,1)) +
-  theme_pubclean() +
-  guides(color = guide_legend(override.aes = list(size = 12))) +
-  theme(axis.title.x = element_text(size = 28, face = "bold"),
-        title = element_text(size = 26, face="bold"),
-        axis.text = element_text(size=26, face = "bold"),
-        # legend.title = element_text(size = 14),
-        # axis.text.y = element_blank(),
-        # legend.title = element_blank(),
-        legend.text = element_text(face = "bold", size = 28),
-        legend.key.size = unit(1.2,"cm"),
-        plot.margin=unit(c(1,1,1,0.15),"cm")) 
-
-
-
 mean.sim.results$labels = factor(mean.sim.results$ce_contrast,
                                     labels = c(TeX(r"($\tau(c_{\0\1}, c_{\0\0})$)",output = "character"),
                                                TeX(r"($\tau(c_{\1\0}, c_{\0\0})$)",output = "character"),
@@ -284,6 +254,51 @@ ggsave("Reproducibility/Simulations/graphics/Appendix/MR_bias_var_PA_n3000_eta02
        p.hajek.both.apdx,
        height = 24,
        width = 18)
+
+
+# Coverage -------------------------------------------------------
+
+
+
+p.hajek.coverage <- ggplot(
+  # mean.sim.results,
+  mean.sim.results[ce_contrast == "c11-c10",],
+                           aes(x=factor(K),y = coverage_hajek,
+                           # aes(x=factor(K),y = coverage_ht,
+                               col = with.true.adj, shape = with.true.adj)) +
+  labs(title = "", 
+       # x = "# networks used",
+       x = "",
+       # y = TeX('$\\tau - \\hat{\\tau}$')
+       y = "Coverage"
+  ) +
+  geom_point(size = 10, stroke = 2) +
+  # geom_line() + 
+  scale_color_manual(labels = c("A* not included", "A* included"), values = c("red4","green4")) +
+  # scale_shape_manual(labels = c("A* not included", "A* included"), values = c(1,4)) +
+  scale_shape_manual(labels = c("A* not included", "A* included"), values = c(1,4)) +
+  geom_abline(intercept = 0.95, slope = 0, lty = "dashed", linewidth = 1.1) +
+  scale_y_continuous(breaks = seq(0,1,0.1),limits = c(0,1)) +
+  theme_pubclean() +
+  # facet_wrap(~ce_contrast, nrow = 1, labeller = label_parsed) +
+  guides(color = guide_legend(override.aes = list(size = 12))) +
+  theme(axis.title.x = element_text(size = 28, face = "bold"),
+        title = element_text(size = 26, face="bold"),
+        axis.text = element_text(size=26, face = "bold"),
+        # legend.title = element_text(size = 14),
+        # axis.text.y = element_blank(),
+        legend.title = element_blank(),
+        legend.text = element_text(face = "bold", size = 28),
+        legend.key.size = unit(1.2,"cm"),
+        # plot.margin=unit(c(1,1,1,0.15),"cm"),
+        ) 
+
+ggsave("Reproducibility/Simulations/graphics/Appendix/MR_PA_n3000_eta025_c11_c10_coverage.jpeg",
+       p.hajek.coverage,
+       dpi = 300,
+       width = 20, height = 10)
+
+
 
 
 # SE/SD comparisons -------------------------------------------------------
