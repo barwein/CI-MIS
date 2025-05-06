@@ -67,7 +67,8 @@ mean.sim.results <- MR.sim.results[,.(m_ht = abs(mean(ht_ce-true_effect)),
 # Main plot c11-c10
 
 p.hajek.bias <- ggplot(
-                    mean.sim.results[ce_contrast == "c11-c10",],
+  mean.sim.results[ce_contrast == "c11-c10",]
+  ,
                          aes(x=factor(K),y = m_hajek,
                              col = with.true.adj, shape = with.true.adj)) +
                    labs(title = "Bias", 
