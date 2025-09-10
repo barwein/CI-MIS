@@ -8,6 +8,7 @@ library(parallel)
 library(gtools)
 
 # install.packages("devtools")
+# TEST
 #devtools::install_github("barwein/Misspecified_Interference")
 library(MisspecifiedInterference)
 
